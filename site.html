@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Furo — Swipe your way through any city</title>
+    <meta name="description" content="Furo turns trip planning into a swipe. Discover real places in any city, save what you love, and get a day-by-day plan with routes, weather and local tips. Free, no sign-up." />
+    <meta name="theme-color" content="#030817" />
+    <meta property="og:title" content="Furo — Swipe your way through any city" />
+    <meta property="og:description" content="Discover real places, swipe to save, and get an auto-planned itinerary with routes and live weather." />
+    <meta property="og:image" content="/brand/furo-icon-512.png" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      try {
+        var s = JSON.parse(localStorage.getItem('furo_settings') || '{}');
+        if (s.theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+      } catch (e) {}
+    </script>
+    <link rel="stylesheet" href="./src/styles/site.css" />
+  </head>
+  <body>
+    <!-- NAV -->
+    <header class="nav" id="nav">
+      <div class="wrap nav-inner">
+        <a class="nav-logo" href="#top" aria-label="Furo home">
+          <img class="logo-light" src="/brand/furo-wordmark-light.png" alt="Furo" />
+          <img class="logo-dark" src="/brand/furo-wordmark-dark.png" alt="Furo" />
+        </a>
+        <nav class="nav-links" id="nav-links" aria-label="Sections">
+          <a href="#how">How it works</a>
+          <a href="#features">Features</a>
+          <a href="#cities">Cities</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-btn" id="theme-btn" type="button" aria-label="Toggle dark mode">🌗</button>
+          <a class="btn btn-primary btn-sm" data-app-link href="/app/">Open Furo</a>
+          <button class="menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="glow glow-a"></div>
+        <div class="glow glow-b"></div>
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow-pill">✨ Trip planning, one swipe at a time</span>
+            <h1>Swipe your way through <span class="grad">any city.</span></h1>
+            <p class="lede">Furo shows you real places — landmarks, food, viewpoints, nightlife. Swipe right on what you love and get a day-by-day plan with routes, live weather and local tips.</p>
+            <form class="hero-search" id="hero-search" autocomplete="off">
+              <span class="hs-icon">📍</span>
+              <input type="search" id="hero-city" placeholder="Where to? Try Goa, Kyoto, Lisbon…" aria-label="City to explore" enterkeyhint="go" />
+              <button class="btn btn-primary" type="submit">Start swiping</button>
+            </form>
+            <div class="hero-sub">
+              <a class="link-btn" data-app-link href="/app/">Open the web app →</a>
+              <a class="link-btn" href="/download/Furo.apk" id="apk-link" download>⬇ Android app (APK)</a>
+            </div>
+            <p class="trust">Free · No sign-up · Places from Wikivoyage, Wikipedia & OpenStreetMap</p>
+          </div>
+
+          <div class="hero-visual" aria-hidden="true">
+            <div class="stack" id="demo-stack">
+              <div class="demo-card c3" style="--img:url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Tiger_Hill_Darjeeling_West_Bengal_India_%283%29.JPG/960px-Tiger_Hill_Darjeeling_West_Bengal_India_%283%29.JPG')"></div>
+              <div class="demo-card c2" style="--img:url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/East_facade_Hawa_Mahal_Jaipur_from_ground_level_%28July_2022%29_-_img_01.jpg/960px-East_facade_Hawa_Mahal_Jaipur_from_ground_level_%28July_2022%29_-_img_01.jpg')"></div>
+              <div class="demo-card c1" id="demo-top" style="--img:url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Pondicherry-Rock_beach_aerial_view.jpg/960px-Pondicherry-Rock_beach_aerial_view.jpg')">
+                <span class="demo-stamp">SAVE</span>
+                <div class="demo-body">
+                  <span class="demo-pill">🏖️ Seaside promenade</span>
+                  <b id="demo-title">Rock Beach Promenade</b>
+                  <small id="demo-sub">🕒 Open 24/7 · 📍 Pondicherry</small>
+                </div>
+              </div>
+            </div>
+            <div class="float f1">♥ Saved to Day 1</div>
+            <div class="float f2">☀️ 28°C · Sunset 18:12</div>
+            <div class="float f3">⚡ Route optimized −3.4 km</div>
+            <div class="demo-actions"><span class="da pass">✕</span><span class="da star">★</span><span class="da save">♥</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS -->
+      <section class="stats wrap reveal">
+        <div><b>Any city</b><span>on Earth, built in seconds</span></div>
+        <div><b>~80</b><span>real spots per city</span></div>
+        <div><b>1 tap</b><span>to plan every day</span></div>
+        <div><b>Offline</b><span>once a city is saved</span></div>
+      </section>
+
+      <!-- HOW -->
+      <section class="section" id="how">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">How it works</span>
+            <h2>From “where should we go?” to a plan in 3 minutes</h2>
+          </div>
+          <div class="steps">
+            <article class="step reveal">
+              <span class="step-n">1</span>
+              <div class="step-em">🔎</div>
+              <h3>Pick a city</h3>
+              <p>Search anywhere — a big city, a hill town or an island. Furo pulls landmarks, food, parks and views from open travel data.</p>
+            </article>
+            <article class="step reveal">
+              <span class="step-n">2</span>
+              <div class="step-em">👆</div>
+              <h3>Swipe what you like</h3>
+              <p>Right to save, left to pass, up for must-visits, down for maybe. Tap a card for hours, prices and practical tips.</p>
+            </article>
+            <article class="step reveal">
+              <span class="step-n">3</span>
+              <div class="step-em">🗺️</div>
+              <h3>Get your days</h3>
+              <p>Auto-plan groups nearby places into days and orders each one for the shortest route — then open it in Google Maps.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURES -->
+      <section class="section alt" id="features">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">Features</span>
+            <h2>Everything a trip needs, nothing it doesn't</h2>
+          </div>
+          <div class="feature-grid">
+            <article class="feature reveal"><div class="f-em">🌍</div><h3>Real places, anywhere</h3><p>Decks built from Wikivoyage traveller listings, Wikipedia landmarks and OpenStreetMap — with real photos of each place, never stock pictures.</p></article>
+            <article class="feature reveal"><div class="f-em">✨</div><h3>Auto-plan your days</h3><p>Set your trip length and Furo clusters spots by neighbourhood, puts must-visits first and finds the shortest order.</p></article>
+            <article class="feature reveal"><div class="f-em">⛅</div><h3>Live weather</h3><p>Current conditions, a 4-day forecast and rain warnings — so you know when to swap the viewpoint for a museum.</p></article>
+            <article class="feature reveal"><div class="f-em">💬</div><h3>Concierge</h3><p>Ask for cheap breakfast, sunset views, free things or a rainy-day plan, and save suggestions straight to your trip.</p></article>
+            <article class="feature reveal"><div class="f-em">🧭</div><h3>Map & routes</h3><p>Colour-coded day pins, numbered stops and one-tap multi-stop directions in Google Maps.</p></article>
+            <article class="feature reveal"><div class="f-em">🛟</div><h3>City guide & safety</h3><p>Tap-to-call emergency numbers, local etiquette and practical tips for every city you build.</p></article>
+            <article class="feature reveal"><div class="f-em">📣</div><h3>Drop a spot</h3><p>Found a hidden chai stall or a free parking hack? Pin it with your location and a photo.</p></article>
+            <article class="feature reveal"><div class="f-em">👥</div><h3>Swipe together</h3><p>Group mode turns places your squad agrees on into matches. (Preview: votes are simulated for now.)</p></article>
+            <article class="feature reveal"><div class="f-em">📝</div><h3>Notes & check-offs</h3><p>Keep booking refs and what-to-order notes on each place, and tick places off as you go.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- PLAN SPOTLIGHT -->
+      <section class="section">
+        <div class="wrap spotlight">
+          <div class="spot-copy reveal">
+            <span class="kicker">Auto-plan</span>
+            <h2>Your saves, sorted into days that make sense</h2>
+            <p>No more zig-zagging across town. Furo groups places that are close together, balances each day, and tells you roughly how long it will take — visits and travel included.</p>
+            <ul class="ticks">
+              <li>Shortest-route ordering for every day</li>
+              <li>Distance, time and cost estimates</li>
+              <li>Reorder by hand, mark visited, add notes</li>
+              <li>Share the whole plan as text in one tap</li>
+            </ul>
+            <a class="btn btn-primary" data-app-link href="/app/">Plan a trip now</a>
+          </div>
+          <div class="plan-mock reveal" aria-hidden="true">
+            <div class="pm-tabs"><span class="on">● Day 1</span><span>● Day 2</span><span>● Day 3</span></div>
+            <div class="pm-info"><b>Day 1:</b> 4 stops · 6.2 km · about 6h 40m · ₹420</div>
+            <ol class="pm-list">
+              <li><span class="pm-n">1</span><div><b>⭐ Lalbagh Botanical Garden</b><small>🏛️ Garden · 2 – 2.5 h</small></div></li>
+              <li><span class="pm-n">2</span><div><b>Vidyarthi Bhavan</b><small>🍽️ Legendary dosa · 45 min</small></div></li>
+              <li><span class="pm-n">3</span><div><b>Bangalore Palace</b><small>🏰 Royal estate · 1.5 h</small></div></li>
+              <li><span class="pm-n">4</span><div><b>Rooftop sunset point</b><small>🌅 Views · 1 h</small></div></li>
+            </ol>
+            <div class="pm-btn">🧭 Open route in Google Maps</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CITIES -->
+      <section class="section alt" id="cities">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">Cities</span>
+            <h2>Start with a favourite — or search your own</h2>
+          </div>
+          <div class="city-grid" id="city-grid"></div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <div class="wrap faq-wrap">
+          <div class="section-head reveal">
+            <span class="kicker">FAQ</span>
+            <h2>Good questions</h2>
+          </div>
+          <div class="faq reveal">
+            <details><summary>Is Furo free?</summary><p>Yes. There's no account and no paywall. Your trips are stored on your own device.</p></details>
+            <details><summary>Where does the place information come from?</summary><p>Live city decks are built from Wikivoyage traveller listings, Wikipedia articles and OpenStreetMap data, and weather comes from Open-Meteo. Bengaluru, Guwahati and Pondicherry also have hand-curated decks. Photos are real pictures of each place from Wikipedia and Wikimedia Commons — if none exist yet, Furo shows a placeholder rather than a stock photo.</p></details>
+            <details><summary>Does it work offline?</summary><p>Once a city is built it's saved on your device, so you can browse your deck and trip without signal. Maps tiles, weather and building new cities need a connection.</p></details>
+            <details><summary>Is there a phone app?</summary><p>Yes — download the Android APK above, or open Furo in your phone's browser and use “Add to home screen”.</p></details>
+            <details><summary>Can I plan with friends?</summary><p>You can share your full plan as text with route links. Group swiping is in preview — your squad's votes are simulated on your device for now.</p></details>
+            <details><summary>How accurate are opening hours and prices?</summary><p>They come from community-maintained sources. They're usually right, but check on the day — especially around holidays and festivals.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cta wrap reveal">
+        <img class="cta-icon" src="/brand/furo-icon-192.png" alt="" />
+        <h2>Your next trip is a few swipes away.</h2>
+        <div class="cta-btns">
+          <a class="btn btn-primary" data-app-link href="/app/">Open Furo — it's free</a>
+          <a class="btn btn-ghost" href="/download/Furo.apk" download>⬇ Get the Android app</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <div>
+          <img class="logo-light" src="/brand/furo-wordmark-light.png" alt="Furo" />
+          <img class="logo-dark" src="/brand/furo-wordmark-dark.png" alt="Furo" />
+          <p>Swipe your way through any city.</p>
+        </div>
+        <div class="footer-links">
+          <a data-app-link href="/app/">Web app</a>
+          <a href="#how">How it works</a>
+          <a href="#features">Features</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <p class="credits">Place data © Wikivoyage & Wikipedia contributors (CC BY-SA) and © OpenStreetMap contributors (ODbL). Weather by Open-Meteo. Map tiles © Esri. Photos from Wikimedia Commons contributors.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="./src/site.js"></script>
+  </body>
+</html>

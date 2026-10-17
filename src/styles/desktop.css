@@ -1,0 +1,193 @@
+/* ==========================================================================
+   Furo — website / desktop layout
+   Phones keep the app layout; wide screens get a website-style header,
+   side panels around the deck, a two-column trip planner and centred dialogs.
+   ========================================================================== */
+
+.discover-main {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.side { display: none; }
+
+@media (min-width: 1000px) {
+  .app {
+    max-width: none;
+    border: 0;
+    grid-template-rows: 68px minmax(0, 1fr);
+  }
+
+  /* ---- header: logo · nav · city · weather · actions */
+  .topbar {
+    grid-row: 1;
+    grid-column: 1;
+    padding: 0 28px;
+    gap: 10px;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand-logo { height: 28px; }
+  .city-pill { flex: 0 1 260px; margin-left: auto; }
+  .city-pill .chev { display: inline; }
+  .icon-btn { width: 40px; height: 40px; }
+
+  .tabbar {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: start;
+    align-self: center;
+    margin-left: 148px;
+    display: flex;
+    gap: 4px;
+    padding: 0;
+    background: none;
+    border: 0;
+    z-index: 21;
+  }
+  .tab {
+    flex-direction: row;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    border-radius: 999px;
+  }
+  .tab svg { width: 19px; height: 19px; }
+  .tab:hover { color: var(--text); background: var(--bg-3); }
+  .tab.active { background: var(--brand-soft); }
+  .tab.active svg { filter: none; }
+  .tab-badge { position: static; box-shadow: none; }
+  #btn-drop { color: var(--text-2); border: 1px dashed var(--line-strong); }
+
+  .views { grid-row: 2; grid-column: 1; }
+
+  /* ---- discover: city panel · deck · trip panel */
+  #view-discover {
+    flex-direction: row;
+    justify-content: center;
+    gap: 28px;
+    padding: 22px 28px 10px;
+  }
+  .discover-main { flex: 0 1 470px; }
+  .discover-main .chips { padding-left: 0; padding-right: 0; }
+  .deck-wrap { padding: 0; }
+  .deck { max-height: 720px; }
+  .swipe-card:hover .card-img { transform: scale(1.02); }
+  .card-img { transition: transform 0.6s var(--ease), opacity 0.2s ease; }
+
+  .side {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 0 1 310px;
+    min-width: 250px;
+    overflow-y: auto;
+    padding-bottom: 12px;
+    scrollbar-width: thin;
+  }
+  .panel {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .panel h4 { font-family: var(--font-head); font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .panel h4 small { font-family: var(--font-body); font-size: 12px; color: var(--text-3); font-weight: 700; }
+  .panel p { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+  .city-hero { display: flex; align-items: center; gap: 12px; }
+  .city-hero .flag { font-size: 34px; }
+  .city-hero b { display: block; font-family: var(--font-head); font-size: 24px; font-weight: 800; line-height: 1.1; }
+  .city-hero small { display: block; font-size: 12.5px; color: var(--text-3); margin-top: 2px; }
+  .mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .mini-stats div { background: var(--bg-3); border-radius: var(--r-sm); padding: 9px 10px; }
+  .mini-stats b { display: block; font-family: var(--font-head); font-size: 18px; }
+  .mini-stats span { font-size: 11px; color: var(--text-3); font-weight: 700; }
+  .wx-line { display: flex; align-items: center; gap: 10px; }
+  .wx-line .i { font-size: 30px; }
+  .wx-line b { font-family: var(--font-head); font-size: 20px; }
+  .side .suggest-chips .chip { height: 30px; font-size: 12px; padding: 0 11px; }
+  .side-list { display: flex; flex-direction: column; gap: 6px; }
+  .side-item { display: flex; align-items: center; gap: 10px; padding: 6px; border-radius: 12px; text-align: left; width: 100%; }
+  .side-item:hover { background: var(--bg-3); }
+  .side-item .side-img { width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0; }
+  .side-item .side-img::before { font-size: 18px; }
+  .side-item .txt { min-width: 0; flex: 1; }
+  .side-item b { display: block; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .side-item small { display: block; font-size: 11.5px; color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .kbd-grid { display: grid; grid-template-columns: auto 1fr; gap: 7px 10px; font-size: 12.5px; color: var(--text-2); align-items: center; }
+  kbd {
+    display: inline-grid;
+    place-items: center;
+    min-width: 28px;
+    height: 24px;
+    padding: 0 6px;
+    border-radius: 7px;
+    background: var(--bg-3);
+    border: 1px solid var(--line-strong);
+    border-bottom-width: 2px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text);
+  }
+
+  /* ---- trip planner: wide two-column list */
+  .trip-scroll { padding: 28px max(28px, calc((100% - 1040px) / 2)) 40px; }
+  .trip-head h2 { font-size: 32px; }
+  .stat-row { grid-template-columns: repeat(3, minmax(0, 220px)); }
+  .seg { max-width: 520px; }
+  .trip-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .trip-list .empty { grid-column: 1 / -1; }
+  .trip-item:hover { border-color: var(--line-strong); }
+
+  /* ---- map */
+  .map-chips { top: 14px; padding: 0 20px; }
+  .map-fab { bottom: 120px; right: 14px; }
+
+  /* ---- sheets become centred dialogs */
+  .sheet {
+    left: 50%;
+    right: auto;
+    top: 50%;
+    bottom: auto;
+    width: min(560px, calc(100vw - 48px));
+    max-height: 86vh;
+    border-radius: 24px;
+    border-bottom: 1px solid var(--line);
+    transform: translate(-50%, -46%) scale(0.97);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.25s var(--ease), opacity 0.2s ease, visibility 0s linear 0.25s;
+    padding-bottom: 0;
+  }
+  .sheet.open {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    visibility: visible;
+    transition: transform 0.25s var(--ease), opacity 0.2s ease;
+  }
+  .sheet.tall { height: 82vh; }
+  .sheet-grab { display: none; }
+  .sheet-head { padding-top: 18px; }
+
+  .toast { top: 80px; }
+
+  .onboard { padding: 48px; }
+}
+
+@media (min-width: 1000px) and (max-width: 1180px) {
+  .side-left { display: none; }
+}
+
+@media (min-width: 1400px) {
+  .discover-main { flex-basis: 500px; }
+  .side { flex-basis: 340px; }
+}

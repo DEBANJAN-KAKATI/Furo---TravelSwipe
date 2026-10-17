@@ -1,0 +1,13 @@
+{
+  "name": "Furo",
+  "short_name": "Furo",
+  "description": "Swipe through real places in any city and plan your trip.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#030817",
+  "theme_color": "#030817",
+  "icons": [
+    { "src": "brand/furo-icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "brand/furo-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

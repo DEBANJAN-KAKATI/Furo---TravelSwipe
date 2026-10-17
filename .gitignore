@@ -1,0 +1,129 @@
+# ==============================================================================
+# Furo / TravelSwipe — Git Ignore Rules
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. AI Assistant & Agent Configurations
+# ------------------------------------------------------------------------------
+.claude/
+.claude*
+.gemini/
+.agents/
+
+# ------------------------------------------------------------------------------
+# 2. Environment Variables, Secrets & Credentials
+# ------------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+credentials*.json
+secrets*.json
+google-services.json
+
+# ------------------------------------------------------------------------------
+# 3. Dependencies & Package Managers
+# ------------------------------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnpm-store
+
+# ------------------------------------------------------------------------------
+# 4. Build Outputs, Compiles & Distribution
+# ------------------------------------------------------------------------------
+dist/
+dist-web/
+build/
+out/
+bin/
+gen/
+*.tsbuildinfo
+backup-original/
+
+# ------------------------------------------------------------------------------
+# 5. Logs & Debug Data
+# ------------------------------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ------------------------------------------------------------------------------
+# 6. IDEs, Editors & Workspaces
+# ------------------------------------------------------------------------------
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ------------------------------------------------------------------------------
+# 7. Android SDK & Machine-Specific Local Properties
+# ------------------------------------------------------------------------------
+android/local.properties
+local.properties
+android/.gradle/
+android/build/
+android/app/build/
+android/.idea/
+android/*.iml
+android/app/*.iml
+android/captures/
+android/.externalNativeBuild
+android/.cxx/
+android/lint/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+
+# Android keystores (Signing keys must NEVER be committed)
+*.jks
+*.keystore
+release-key.properties
+
+# Android profiling & dumps
+*.hprof
+
+# ------------------------------------------------------------------------------
+# 8. Operating System & System Files
+# ------------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Thumbs.db:encryptable
+desktop.ini
+
+# ------------------------------------------------------------------------------
+# 9. Temporary & Backup Files
+# ------------------------------------------------------------------------------
+*.tmp
+*.temp
+*.bak
+*.old

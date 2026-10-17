@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Furo — Swipe your next trip</title>
+    <meta name="description" content="Furo: swipe through real places in any city, build a day-by-day plan, and navigate it on the map." />
+    <meta name="theme-color" content="#030817" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <script>
+      // Apply the saved theme before first paint to avoid a flash
+      try {
+        var s = JSON.parse(localStorage.getItem('furo_settings') || '{}');
+        if (s.theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+      } catch (e) {}
+    </script>
+    <link rel="stylesheet" href="./src/styles/main.css" />
+  </head>
+  <body>
+    <div id="app" class="app">
+
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <button class="brand" id="brand-btn" type="button" aria-label="Furo — back to Discover">
+          <img class="brand-logo brand-logo-light" src="/brand/furo-wordmark-light.png" alt="Furo" />
+          <img class="brand-logo brand-logo-dark" src="/brand/furo-wordmark-dark.png" alt="Furo" />
+        </button>
+        <button class="city-pill" id="city-pill" type="button" aria-label="Change city">
+          <span id="city-flag">📍</span>
+          <span class="city-name" id="city-name">Bengaluru</span>
+          <span class="chev">▾</span>
+        </button>
+        <button class="weather-pill" id="weather-pill" type="button" aria-label="Weather & city guide">
+          <span id="weather-icon">🌤️</span><span id="weather-temp">--°</span>
+        </button>
+        <button class="icon-btn" id="btn-concierge" type="button" aria-label="Ask the Furo concierge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M19 15l.8 1.9 1.9.8-1.9.8L19 20.4l-.8-1.9-1.9-.8 1.9-.8z"/></svg>
+        </button>
+        <button class="icon-btn" id="btn-menu" type="button" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <span class="dot" id="group-dot" hidden></span>
+        </button>
+      </header>
+
+      <main class="views">
+        <!-- DISCOVER -->
+        <section class="view active" id="view-discover" aria-label="Discover">
+          <aside class="side side-left" id="side-city" aria-label="City overview"></aside>
+          <div class="discover-main">
+          <div class="chips" id="category-chips" role="tablist" aria-label="Categories"></div>
+          <div class="deck-wrap">
+            <div class="deck" id="deck"></div>
+          </div>
+          <div class="actions">
+            <button class="act act-undo" id="act-undo" type="button" aria-label="Undo last swipe (U)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 010 11H11"/></svg>
+            </button>
+            <button class="act act-pass big" id="act-pass" type="button" aria-label="Pass (Left arrow)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+            <button class="act act-must" id="act-must" type="button" aria-label="Must visit (Up arrow)">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/></svg>
+            </button>
+            <button class="act act-save big" id="act-save" type="button" aria-label="Save (Right arrow)">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.1 5.3 3 1.7-1.9 3.2-3 5.3-3 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>
+            </button>
+            <button class="act act-maybe" id="act-maybe" type="button" aria-label="Maybe later (Down arrow)">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v17l-7-4.2L5 21V4a1 1 0 011-1z"/></svg>
+            </button>
+          </div>
+          </div>
+          <aside class="side side-right" id="side-trip" aria-label="Trip overview"></aside>
+        </section>
+
+        <!-- TRIP -->
+        <section class="view" id="view-trip" aria-label="Your trip">
+          <div class="trip-scroll" id="trip-scroll">
+            <div class="trip-head">
+              <div>
+                <p class="eyebrow" id="trip-eyebrow">Your trip</p>
+                <h2 id="trip-title">Bengaluru</h2>
+              </div>
+              <button class="btn btn-ghost btn-sm" id="btn-share-trip" type="button">↗ Share</button>
+            </div>
+            <div class="stat-row" id="trip-stats"></div>
+            <div class="seg" id="trip-tabs"></div>
+            <div class="chips day-strip" id="day-strip"></div>
+            <div id="day-tools"></div>
+            <div class="trip-list" id="trip-list"></div>
+          </div>
+        </section>
+
+        <!-- MAP -->
+        <section class="view" id="view-map" aria-label="Map">
+          <div id="leaflet-map"></div>
+          <div class="chips map-chips" id="map-chips"></div>
+          <div class="map-status" id="map-status"></div>
+          <button class="map-fab" id="btn-locate" type="button" aria-label="Show my location">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          </button>
+        </section>
+      </main>
+
+      <!-- TAB BAR -->
+      <nav class="tabbar" aria-label="Main">
+        <button class="tab active" data-view="discover" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="6" y="3" width="13" height="17" rx="3"/><path d="M3.5 7.5v10a3 3 0 003 3h8"/></svg>
+          <span>Discover</span>
+        </button>
+        <button class="tab" data-view="trip" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 9a3 3 0 013-3h8a3 3 0 013 3v9a3 3 0 01-3 3H8a3 3 0 01-3-3z"/><path d="M9 6V4.5A1.5 1.5 0 0110.5 3h3A1.5 1.5 0 0115 4.5V6M8 13h8"/></svg>
+          <span>Trip</span>
+          <span class="tab-badge" id="trip-badge"></span>
+        </button>
+        <button class="tab" id="btn-drop" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+          <span>Drop spot</span>
+        </button>
+        <button class="tab" data-view="map" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M9 4L3 6.5v13L9 17l6 3 6-2.5v-13L15 7z"/><path d="M9 4v13M15 7v13"/></svg>
+          <span>Map</span>
+        </button>
+      </nav>
+
+      <!-- SHEETS (content rendered by main.js) -->
+      <div class="backdrop" id="backdrop"></div>
+      <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+        <div class="sheet-grab"></div>
+        <div class="sheet-head">
+          <div>
+            <h3 id="sheet-title"></h3>
+            <p id="sheet-sub"></p>
+          </div>
+          <button class="sheet-close" id="sheet-close" type="button" aria-label="Close">✕</button>
+        </div>
+        <div class="sheet-content" id="sheet-content" style="display:flex;flex-direction:column;min-height:0;flex:1;"></div>
+      </section>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "furo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:web": "vite build --mode web",
+    "preview": "vite preview",
+    "preview:web": "vite preview --mode web --port 4173",
+    "android": "vite build && npx cap sync android"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
+    "canvas-confetti": "^1.9.4",
+    "leaflet": "^1.9.4"
+  }
+}
